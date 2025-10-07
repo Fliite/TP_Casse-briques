@@ -1,6 +1,6 @@
 import tkinter as tk
 
-
+from FonctionCasseBrique import *
 
 root = tk.Tk()
 root.title("Casse-Briques")
