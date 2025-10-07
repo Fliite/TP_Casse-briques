@@ -4,6 +4,7 @@ Objectif : Creer la fenetre des parametres. Elle pourra cahnger la vitesse de la
 """
 
 import tkinter as tk
+
 def OuvrirParametres():
     settings = tk.Tk()
     settings.title("Casse-Briques")
@@ -13,3 +14,5 @@ def OuvrirParametres():
     # Bouton Retour en haut à gauche
     btn_back = tk.Button(settings, text="Retour", command=GoBack)
     btn_back.place(x=10, y=10, width=60, height=30)
+
+    settings.mainloop()
