@@ -5,6 +5,10 @@ Objectif : Creer la fenetre des parametres. Elle pourra cahnger la vitesse de la
 
 import tkinter as tk
 
+def GoBack():
+    import FenetrePrincipale
+    
+
 def OuvrirParametres():
     settings = tk.Tk()
     settings.title("Casse-Briques")

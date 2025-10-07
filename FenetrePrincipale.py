@@ -7,8 +7,8 @@ root.geometry("1280x720")
 
 def GoPrarameteres():
     import FenetreParametres
-    FenetreParametres.OuvrirParametres()
     root.destroy()
+    FenetreParametres.OuvrirParametres()
 
 # Bouton Quitter en haut à droite
 btn_quitter = tk.Button(root, text="Quitter", command= lambda: root.destroy())
