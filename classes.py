@@ -10,6 +10,15 @@ class Brique:
         self.__vie -= 1
         if self.__vie <= 0:
             self.__visible = False
+    def draw(self, canvas):
+        if not self._visible:
+            return
+        x, y = self.__position
+        L, H = self._largeur, self.__hauteur
+        if self._id is None:
+            self._id = canvas.create_rectangle(x, y, x+L, y+H, fill="green")
+        else :
+            canvas.coords(self._id, x, , x+L, y+H)
 
 class Balle:
     def __init__(self):
