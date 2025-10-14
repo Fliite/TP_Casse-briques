@@ -1,20 +1,25 @@
+def rgb(r, g, b):
+    """(255,0,0) -> '#ff0000' pour Tkinter."""
+    return f"#{r:02x}{g:02x}{b:02x}"
+
 class Brique:
     def __init__(self):
-        # Attributs "privés" (name mangling), garde EXACTEMENT ces noms
+        # attributs "privés" (double underscore) -> accessible UNIQUEMENT dans la classe
         self.__largeur = 75
         self.__hauteur = 20
-        self.__couleur = (255, 0, 0)
-        self.__vie = 2
+        self.__couleur = (255, 0, 0)  # on convertira au draw()
+        self.__position = [0, 0]
         self.__visible = True
-    def Brique_casse(self):
-        self.__vie -= 1
-        if self.__vie <= 0:
-            self.__visible = False
+        self.__vie = 2
+        self.__id = None  # id de l'objet Canvas une fois créé
+
+    def set_position(self, x, y):
+        """Permet de positionner depuis l'extérieur sans toucher à __position directement."""
+        self.__position = [x, y]
 
     def draw(self, canvas):
         """Dessine ou met à jour la brique sur le Canvas."""
         if not self.__visible:
-            # Si elle n'est plus visible, supprime-la du canvas si besoin
             if self.__id is not None:
                 canvas.delete(self.__id)
                 self.__id = None
@@ -22,12 +27,16 @@ class Brique:
 
         x, y = self.__position
         L, H = self.__largeur, self.__hauteur
+        color = rgb(*self.__couleur)
 
         if self.__id is None:
-            # Première fois : on crée le rectangle
-            self.__id = canvas.create_rectangle( x, y, x + L, y + H, fill=rgb(*self.__couleur), outline="")
+            # première création
+            self.__id = canvas.create_rectangle(
+                x, y, x + L, y + H,
+                fill=color, outline=""
+            )
         else:
-            # Déjà créé : on met juste à jour ses coordonnées
+            # juste mise à jour de la position/taille
             canvas.coords(self.__id, x, y, x + L, y + H)
 
 class Balle:
