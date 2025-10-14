@@ -1,4 +1,4 @@
-class brique:
+class Brique:
     def __init__(self):
         self.__largeur = 75
         self.__hauteur = 20
@@ -11,14 +11,14 @@ class brique:
         if self.__vie <= 0:
             self.__visible = False
 
-class balle:
+class Balle:
     def __init__(self):
         self.__rayon = 10
         self.__couleur = (0, 255, 0)
         self.__position = [300, 300]
         self.__vitesse = [5, -5]
 
-class raquette:
+class Raquette:
     def __init__(self):
         self.__largeur = 100
         self.__hauteur = 20
