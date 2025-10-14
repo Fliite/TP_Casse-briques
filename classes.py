@@ -47,6 +47,11 @@ class Balle:
         self.__couleur = (0, 255, 0)
         self.__position = [300, 300]
         self.__vitesse = [5, -5]
+    def getX(self):
+        return self.__position[0]
+    def getY(self):
+        return self.__position[1]
+
 
 class Raquette:
     def __init__(self):
