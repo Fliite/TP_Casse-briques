@@ -18,7 +18,7 @@ class Brique:
         if self._id is None:
             self._id = canvas.create_rectangle(x, y, x+L, y+H, fill="green")
         else :
-            canvas.coords(self._id, x, , x+L, y+H)
+            canvas.coords(self._id, x, y, x+L, y+H)
 
 class Balle:
     def __init__(self):
