@@ -6,7 +6,7 @@ root.title("Casse-Briques")
 root.geometry("1280x720")
 
 def GoPrarameteres():
-    import FenetreParametres
+    import old.FenetreParametres as FenetreParametres
     root.destroy()
     FenetreParametres.OuvrirParametres()
 

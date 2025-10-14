@@ -13,12 +13,12 @@ def demarrer():
     score_label.config(text=f"Score: {score}")
 
 def GoPrarameteres():
-    import FenetreParametres as p
+    import old.FenetreParametres as p
     root.destroy()
     p.settings.mainloop()
 
 # Fonction pour revenir à la fenêtre principale
 def GoBack():
-    import FenetreParametres as p
+    import old.FenetreParametres as p
     p.settings.destroy()
     root.mainloop()
