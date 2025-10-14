@@ -6,7 +6,7 @@ class Application(tk.Tk):
     def __init__(self):
         super().__init__() # le super c'est pour hériter de Tk (la classe mère)
         self.title("Application avec Frames")
-        self.geometry("1280x720")
+        self.geometry("1920x1080")
 
         # Dictionnaire pour stocker les différentes pages
         self.frames = {}
@@ -39,10 +39,10 @@ class PageAccueil(tk.Frame):
         bouton_parametres.pack()
 
         boutton_quitter = tk.Button(self, text="Quitter", command=self.quit)
-        boutton_quitter.pack(pady=10, side=tk.RIGHT)
+        boutton_quitter.pack(pady=10, side=tk.TOP)
 
         boutton_jouer = tk.Button(self, text="Jouer", command=lambda: controller.show_frame("PageJeu"))
-        boutton_jouer.pack(pady=10, side=tk.LEFT)
+        boutton_jouer.pack(pady=10, side=tk.TOP)
 
         score = 0
         score_label = tk.Label(self, text=f"Score: {score}", font=("Arial", 16))
