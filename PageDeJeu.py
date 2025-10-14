@@ -13,8 +13,6 @@ class PageJeu(tk.Frame):
         canvas = tk.Canvas(self, width=200, height=100, bg="red")
         canvas.pack(pady=10)
 
-
-
         bouton_retour = tk.Button(self, text="Retour à l'accueil",command=lambda: controller.show_frame("PageAccueil"))
         bouton_retour.pack()
 
