@@ -25,7 +25,7 @@ class PageJeu(tk.Frame):
 
     def creer_briques(self):
         """Crée et affiche un petit mur de briques rouges."""
-        cols, rows = 5, 3       # 5 colonnes, 3 lignes
+        cols, rows = 7, 3       # 5 colonnes, 3 lignes
         espace = 10             # espace entre briques
         start_x, start_y = 50, 50  # point de départ
 
