@@ -1,5 +1,6 @@
 class Brique:
     def __init__(self):
+        # Attributs "privés" (name mangling), garde EXACTEMENT ces noms
         self.__largeur = 75
         self.__hauteur = 20
         self.__couleur = (255, 0, 0)
@@ -9,15 +10,25 @@ class Brique:
         self.__vie -= 1
         if self.__vie <= 0:
             self.__visible = False
+
     def draw(self, canvas):
-        if not self._visible:
+        """Dessine ou met à jour la brique sur le Canvas."""
+        if not self.__visible:
+            # Si elle n'est plus visible, supprime-la du canvas si besoin
+            if self.__id is not None:
+                canvas.delete(self.__id)
+                self.__id = None
             return
+
         x, y = self.__position
-        L, H = self._largeur, self.__hauteur
-        if self._id is None:
-            self._id = canvas.create_rectangle(x, y, x+L, y+H, fill="green")
-        else :
-            canvas.coords(self._id, x, y, x+L, y+H)
+        L, H = self.__largeur, self.__hauteur
+
+        if self.__id is None:
+            # Première fois : on crée le rectangle
+            self.__id = canvas.create_rectangle( x, y, x + L, y + H, fill=rgb(*self.__couleur), outline="")
+        else:
+            # Déjà créé : on met juste à jour ses coordonnées
+            canvas.coords(self.__id, x, y, x + L, y + H)
 
 class Balle:
     def __init__(self):
