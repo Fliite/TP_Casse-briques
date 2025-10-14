@@ -4,39 +4,41 @@ def rgb(r, g, b):
 
 class Brique:
     def __init__(self):
-        # attributs "privés" (double underscore) -> accessible UNIQUEMENT dans la classe
+        """Initialise une brique avec ses caractéristiques par défaut."""
         self.__largeur = 75
         self.__hauteur = 20
-        self.__couleur = (255, 0, 0)  # on convertira au draw()
-        self.__position = [0, 0]
-        self.__visible = True
-        self.__vie = 2
-        self.__id = None  # id de l'objet Canvas une fois créé
+        self.__couleur = (255, 0, 0)     # Rouge
+        self.__position = [0, 0]         # Position (coin haut-gauche)
+        self.__visible = True            # Sert à la masquer quand elle est cassée
+        self.__vie = 2                   # Nombre de coups avant de disparaître
+        self.__id = None                 # ID de l'objet Canvas une fois affiché
 
     def set_position(self, x, y):
-        """Permet de positionner depuis l'extérieur sans toucher à __position directement."""
+        """Définit la position de la brique sur le Canvas."""
         self.__position = [x, y]
 
     def draw(self, canvas):
-        """Dessine ou met à jour la brique sur le Canvas."""
+        """Dessine ou met à jour la brique sur le Canvas Tkinter."""
         if not self.__visible:
+            # Si la brique est "cassée", on la supprime du Canvas
             if self.__id is not None:
                 canvas.delete(self.__id)
                 self.__id = None
             return
 
+        # Récupère la position et la taille
         x, y = self.__position
         L, H = self.__largeur, self.__hauteur
         color = rgb(*self.__couleur)
 
         if self.__id is None:
-            # première création
+            # Première fois qu'on l'affiche → on la crée
             self.__id = canvas.create_rectangle(
                 x, y, x + L, y + H,
                 fill=color, outline=""
             )
         else:
-            # juste mise à jour de la position/taille
+            # Elle existe déjà → on met juste à jour ses coordonnées
             canvas.coords(self.__id, x, y, x + L, y + H)
 
 class Balle:
