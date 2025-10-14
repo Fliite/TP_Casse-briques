@@ -1,5 +1,5 @@
 import tkinter as tk
-from classes import Brique
+from classes import Brique, Balle
 
 class PageJeu(tk.Frame):
     """Page qui contient la zone de jeu et les briques."""
@@ -23,6 +23,15 @@ class PageJeu(tk.Frame):
         # --- Création et affichage des briques ---
         self.creer_briques()
 
+        """ Pour la balle """
+        # --- Création de la balle (en attribut) ---
+        self.balle = Balle()                      # crée la balle
+        self.balle.set_position(100, 100)         # position initiale
+        self.balle.draw(self.canvasDeJeu)         # l’affiche sur le Canvas
+    
+        # --- Démarre le mouvement (boucle d’animation) ---
+        self._loop()
+        
     def creer_briques(self):
         """Crée et affiche un petit mur de briques rouges."""
         cols, rows = 7, 3       # 5 colonnes, 3 lignes
@@ -37,3 +46,10 @@ class PageJeu(tk.Frame):
                 brique = Brique()
                 brique.set_position(x, y)
                 brique.draw(self.canvasDeJeu)
+
+    
+
+    def _loop(self):                  #boucle d'animation pour qu'elle le refasse en boucle
+        """Met à jour la position de la balle en continu."""
+        self.balle.step(self.canvasDeJeu, 1080, 720)  # la fait bouger
+        self.after(16, self._loop)  # relance la fonction après 16 ms (~60 FPS)
