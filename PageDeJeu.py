@@ -9,7 +9,7 @@ class PageJeu(tk.Frame):
         self.controller = controller
 
         # --- Canvas principal du jeu ---
-        self.canvasDeJeu = tk.Canvas(self, width=720, height=480, bg="black")
+        self.canvasDeJeu = tk.Canvas(self, width=1080, height=720, bg="black")
         self.canvasDeJeu.pack(pady=20)
 
         # --- Bouton pour revenir à l'accueil ---
