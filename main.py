@@ -1,6 +1,6 @@
 import tkinter as tk
 from PageParametres import PageParametres
-from jeu import PageJeu
+from PageDeJeu import PageJeu
 
 class Application(tk.Tk):
     def __init__(self):
@@ -12,11 +12,11 @@ class Application(tk.Tk):
         self.frames = {}
 
         # Crée les différentes pages
-        for F in (PageAccueil, PageParametres):
+        for F in (PageAccueil, PageParametres, PageJeu):
             page_name = F.__name__
             frame = F(parent=self, controller=self)
             self.frames[page_name] = frame
-            frame.grid(row=0, column=0, sticky="nsew")
+            frame.grid(row=0, column=0, sticky="nsew") # nsew pour que la frame prenne toute la place
 
         self.show_frame("PageAccueil")
 
@@ -30,22 +30,23 @@ class PageAccueil(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
+        self.configure(bg="lightgreen")
 
         label = tk.Label(self, text="Bienvenue dans la page d'accueil")
         label.pack(pady=20)
 
-        bouton = tk.Button(self, text="Aller aux paramètres",command=lambda: controller.show_frame("PageParametres"))
-        bouton.pack()
+        bouton_parametres = tk.Button(self, text="Aller aux paramètres",command=lambda: controller.show_frame("PageParametres"))
+        bouton_parametres.pack()
 
         boutton_quitter = tk.Button(self, text="Quitter", command=self.quit)
-        boutton_quitter.pack(pady=10)
+        boutton_quitter.pack(pady=10, side=tk.RIGHT)
 
         boutton_jouer = tk.Button(self, text="Jouer", command=lambda: controller.show_frame("PageJeu"))
-        boutton_jouer.pack(pady=10)
+        boutton_jouer.pack(pady=10, side=tk.LEFT)
 
         score = 0
         score_label = tk.Label(self, text=f"Score: {score}", font=("Arial", 16))
-        score_label.pack(pady=10)
+        score_label.pack(pady=10, side=tk.TOP)
 
 if __name__ == "__main__":
     app = Application()
