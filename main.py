@@ -1,7 +1,9 @@
 import tkinter as tk
 from PageParametres import PageParametres
 from PageDeJeu import PageJeu
-from pageAccueuil import PageAccueil
+from classeBalle import Balle
+from classeRaquette import Raquette
+from classeBrique import Brique
 
 class Application(tk.Tk):
     '''La classe principale qui gère les différentes pages (frames).
