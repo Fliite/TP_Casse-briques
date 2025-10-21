@@ -40,7 +40,11 @@ class PageJeu(tk.Frame):
         self.balle = Balle()                      # crée la balle
         self.balle.set_position(100, 100)         # position initiale
         self.balle.draw(self.canvasDeJeu)         # l’affiche sur le Canvas
-    
+
+        # --- Mouvement clavier ---
+        self.bind("<KeyPress-Left", lambda e: self._on_press("left"))
+        self.bind("<KeyPress-Right", lambda e: self._on_press("right"))
+
         # --- Démarre le mouvement (boucle d’animation) ---
         self._loop()
         
