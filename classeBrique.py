@@ -1,9 +1,11 @@
+from foncitons import rgb
+
 class Brique:
     def __init__(self):
         """Initialise une brique avec ses caractéristiques par défaut."""
         self.__largeur = 75
         self.__hauteur = 20
-        self.__couleur = (255, 0, 0)     # Rouge
+        self.__couleur = ('#FF3D17')     # Rouge
         self.__position = [0, 0]         # Position (coin haut-gauche)
         self.__visible = True            # Sert à la masquer quand elle est cassée
         self.__vie = 2                   # Nombre de coups avant de disparaître
@@ -25,13 +27,12 @@ class Brique:
         # Récupère la position et la taille
         x, y = self.__position
         L, H = self.__largeur, self.__hauteur
-        color = rgb(*self.__couleur)
 
         if self.__id is None:
             # Première fois qu'on l'affiche → on la crée
             self.__id = canvas.create_rectangle(
                 x, y, x + L, y + H,
-                fill=color, outline=""
+                fill=self.__couleur, outline=""
             )
         else:
             # Elle existe déjà → on met juste à jour ses coordonnées

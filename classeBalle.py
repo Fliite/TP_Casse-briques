@@ -1,7 +1,7 @@
 class Balle:
     def __init__(self):
         self.__rayon = 10
-        self.__couleur = (0, 0, 255)
+        self.__couleur = ("#F7FF17")
         self.__position = [300, 300]
         self.__vitesse = [5, -5]
         self.__id = None
