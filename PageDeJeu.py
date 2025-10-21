@@ -28,6 +28,21 @@ class PageJeu(tk.Frame):
         )
         boutonRetour.pack(pady=10)
         
+        # Bouton Start
+        boutonRetour = tk.Button(
+            self.canvas2,
+            text="Start",
+            command=lambda: controller.show_frame("Start")
+        )
+
+
+                # Bouton Start
+        boutonRetour = tk.Button(
+            self.canvas2,
+            text="Start",
+            command=lambda: controller.show_frame("Start")
+        )
+
         # Label pour afficher le score
         self.score = 0
         self.score_label = tk.Label(self.canvas2, text=f"Score: {self.score}", font=("Arial", 16))
@@ -45,6 +60,16 @@ class PageJeu(tk.Frame):
         # Mouvement clavier
         self.bind("<KeyPress-Left", lambda e: self._on_press("left")) #probleme : la raquette glisse a l'infini
         self.bind("<KeyPress-Right", lambda e: self._on_press("right"))
+
+        # Etat du jeu
+        self.running = False
+        self.pressed_left = False
+        self.pressed_right = False
+
+        # Objets de jeu
+        self.bricks = []
+        self.ball = None
+        self.paddle = None
 
         # Démarre le mouvement (boucle d’animation)
         self._loop()
@@ -64,9 +89,28 @@ class PageJeu(tk.Frame):
                 brique.set_position(x, y)
                 brique.draw(self.canvasDeJeu)
 
-    
-
+    def start(self):
+        self.running = True
+    def pause(self):
+        self.running = False
+    def reset(self):
+        self.running = False
+        self.score = 0
+        self.lbl_score.config(text=f"Score : {self.score}")
+        self._build_level()
+    def OuiPress(self,key):
+        if key == "left":
+            self.pressed_left = True
+        if key == "right":
+            self.pressed_right = True
+    def NonPress(self,key):
+        if key == "left":
+            self.pressed_left = False
+        if key == "right":
+            self.pressed_right = False
     def _loop(self):                  #boucle d'animation pour qu'elle le refasse en boucle
         """Met à jour la position de la balle en continu."""
+        
+        
         self.balle.step(self.canvasDeJeu, 1080, 720)  # la fait bouger
         self.after(16, self._loop)  # relance la fonction après 16 ms (~60 FPS)
