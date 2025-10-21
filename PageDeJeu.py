@@ -9,7 +9,7 @@ class PageJeu(tk.Frame):
         super().__init__(parent)
         self.controller = controller
 
-        # --- Canvas principal du jeu ---
+        # Canvas principal du jeu
         self.canvasDeJeu = tk.Canvas(self, width=1500, height=720)
         self.canvasDeJeu.pack(pady=20)
 
@@ -20,7 +20,7 @@ class PageJeu(tk.Frame):
         self.canvas2 = tk.Canvas(self.canvasDeJeu, width=400, height=720, bg="white")
         self.canvas2.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-        # --- Bouton pour revenir à l'accueil ---
+        # Bouton pour revenir à l'accueil
         boutonRetour = tk.Button(
             self.canvas2,
             text="Retour à l'accueil",
@@ -28,25 +28,25 @@ class PageJeu(tk.Frame):
         )
         boutonRetour.pack(pady=10)
         
-        # --- Label pour afficher le score ---
+        # Label pour afficher le score
         self.score = 0
         self.score_label = tk.Label(self.canvas2, text=f"Score: {self.score}", font=("Arial", 16))
         self.score_label.pack(pady=10)
 
-        # --- Création et affichage des briques ---
+        # Création et affichage des briques
         self.creer_briques()
 
         """ Pour la balle """
-        # --- Création de la balle (en attribut) ---
+        # Création de la balle (en attribut)
         self.balle = Balle()                      # crée la balle
         self.balle.set_position(100, 100)         # position initiale
-        self.balle.draw(self.canvasDeJeu)         # l’affiche sur le Canvas
+        self.balle.draw_b(self.canvasDeJeu)         # l’affiche sur le Canvas
 
-        # --- Mouvement clavier ---
-        self.bind("<KeyPress-Left", lambda e: self._on_press("left"))
+        # Mouvement clavier
+        self.bind("<KeyPress-Left", lambda e: self._on_press("left")) #probleme : la raquette glisse a l'infini
         self.bind("<KeyPress-Right", lambda e: self._on_press("right"))
 
-        # --- Démarre le mouvement (boucle d’animation) ---
+        # Démarre le mouvement (boucle d’animation)
         self._loop()
         
     def creer_briques(self):

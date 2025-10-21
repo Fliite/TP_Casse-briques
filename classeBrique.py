@@ -29,7 +29,7 @@ class Brique:
         L, H = self.__largeur, self.__hauteur
 
         if self.__id is None:
-            # Première fois qu'on l'affiche → on la crée
+            # Première fois qu'on l'affiche, on la crée
             self.__id = canvas.create_rectangle(
                 x, y, x + L, y + H,
                 fill=self.__couleur, outline=""
