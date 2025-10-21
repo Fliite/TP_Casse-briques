@@ -1,8 +1,13 @@
 import tkinter as tk
 from PageParametres import PageParametres
 from PageDeJeu import PageJeu
+from pageAccueuil import PageAccueil
 
 class Application(tk.Tk):
+    '''La classe principale qui gère les différentes pages (frames).
+    Les pages parametres, jeu, accueil sont des frames qui héritent de tk.Frame.
+    Ce sont des onglets que l'on peut afficher ou cacher.
+    '''
     def __init__(self):
         super().__init__() # le super c'est pour hériter de Tk (la classe mère)
         self.title("Application avec Frames")
@@ -25,29 +30,7 @@ class Application(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-# Page d'accueil
-class PageAccueil(tk.Frame):
-    def __init__(self, parent, controller):
-        super().__init__(parent)
-        self.controller = controller
-        self.configure(bg="lightgreen")
-
-        label = tk.Label(self, text="Bienvenue dans la page d'accueil")
-        label.pack(pady=20)
-
-        bouton_parametres = tk.Button(self, text="Aller aux paramètres",command=lambda: controller.show_frame("PageParametres"))
-        bouton_parametres.pack()
-
-        boutton_quitter = tk.Button(self, text="Quitter", command=self.quit)
-        boutton_quitter.pack(pady=10, side=tk.TOP)
-
-        boutton_jouer = tk.Button(self, text="Jouer", command=lambda: controller.show_frame("PageJeu"))
-        boutton_jouer.pack(pady=10, side=tk.TOP)
-
-        score = 0
-        score_label = tk.Label(self, text=f"Score: {score}", font=("Arial", 16))
-        score_label.pack(pady=10, side=tk.TOP)
-
+#permet de lancer l'application de manière autonome, utile pour les tests
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
