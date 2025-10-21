@@ -16,7 +16,7 @@ class Balle:
         x, y = self.__position
         r = self.__rayon
         if self.__id is None:
-            self.__id = canvas.create_oval( x-r, y - r, x + r, y + r, fill=rgb(*self.__couleur), outline="")
+            self.__id = canvas.create_oval( x-r, y - r, x + r, y + r, fill=self.__couleur, outline="")
         else : 
             canvas.coords(self.__id, x-r, y - r, x + r, y + r )
     def rebond(self, canvas, ):

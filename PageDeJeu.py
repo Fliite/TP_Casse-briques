@@ -1,5 +1,6 @@
 import tkinter as tk
-from classes import Brique, Balle
+from classeBalle import Balle
+from classeBrique import Brique
 
 class PageJeu(tk.Frame):
     """Page qui contient la zone de jeu et les briques."""
