@@ -1,6 +1,5 @@
 import tkinter as tk
-from PageParametres import Parametres
-from PageDeJeu import Jeu
+from classeBrique import Brique
 
 class Application(tk.Tk):
     '''La classe principale qui gère les différentes pages (frames).
