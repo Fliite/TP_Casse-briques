@@ -4,40 +4,42 @@ class Balle:
     On pourra eventuellement modifier cette classe pour ajouter des fonctionnalités comme des balles spéciales (vitesse variable, taille variable, etc.).
     '''
     def __init__(self, canvas, x, y, r=7, color="white", vitesseBalle=6):
-        self.canvas = canvas
+        self.__canvas = canvas
         self.r = r
-        self.id = canvas.create_oval(x - r, y - r, x + r, y + r, fill=color, outline=color)
-        self.vitesseBalle = vitesseBalle
-        self.vx = vitesseBalle * 0.7
-        self.vy = -abs(vitesseBalle * 0.7)
-        self._prev_bbox = self.canvas.coords(self.id)
+        self.__id = canvas.create_oval(x - r, y - r, x + r, y + r, fill=color, outline=color)
+        self.__vitesseBalle = vitesseBalle
+        self.__vx = vitesseBalle * 0.7
+        self.__vy = -abs(vitesseBalle * 0.7)
+        self.__PosPrec = self.__canvas.coords(self.__id)
     
     def CordsBalle(self):
         ''' Renvoie les coordonnées actuelles de la balle sous la forme (x1, y1, x2, y2) '''
-        return self.canvas.coords(self.id)
+        return self.__canvas.coords(self.__id)
 
     def move(self):
         ''' Déplace la balle selon sa vitesse '''
-        self._prev_bbox = self.CordsBalle()
-        self.canvas.move(self.id, self.vx, self.vy)
-    
+        self.__PosPrec = self.CordsBalle()
+        self.__canvas.move(self.__id, self.__vx, self.__vy)
 
-    def draw_b(self, canvas):
-        """ Crée et met à jour la balle """
-        x, y = self.__position
-        r = self.__rayon
-        if self.__id is None:
-            self.__id = canvas.create_oval( x-r, y - r, x + r, y + r, fill=self.__couleur, outline="")
-        else : 
-            canvas.coords(self.__id, x-r, y - r, x + r, y + r )
+    def Position(self, x, y):
+        ''' Permet de positionner la balle aux coordonnées (x, y) 
+         en déplaçant la balle de sa position actuelle à la nouvelle position
+        '''
+        x1, y1, x2, y2 = self.CordsBalle()
+        cx = (x1 + x2) / 2
+        cy = (y1 + y2) / 2
+        dx = x - cx
+        dy = y - cy
+        self.__canvas.move(self.__id, dx, dy)
+        self.__PosPrec = self.CordsBalle()
     
     def RebondX(self):
         ''' Inverse la vitesse en x de la balle '''
-        self.vx = -self.vx
+        self.__vx = -self.__vx
 
     def RebondY(self):
         ''' Inverse la vitesse en y de la balle '''
-        self.vy = -self.vy
+        self.__vy = -self.__vy
 
     def VerifierVitesse(self, vx=None, vy=None):
         ''' Permet de modifier la vitesse de la balle 
