@@ -1,8 +1,6 @@
 import tkinter as tk
-from PageParametres import PageParametres
-from classeBalle import Balle
-from classeRaquette import Raquette
-from classeBrique import Brique
+from PageParametres import Parametres
+from PageDeJeu import Jeu
 
 class Application(tk.Tk):
     '''La classe principale qui gère les différentes pages (frames).
@@ -18,7 +16,7 @@ class Application(tk.Tk):
         self.frames = {}
 
         # Crée les différentes pages
-        for F in ("PageParametres"):
+        for F in ("Parametres", "Jeu"):
             page_name = F.__name__
             frame = F(parent=self, controller=self)
             self.frames[page_name] = frame

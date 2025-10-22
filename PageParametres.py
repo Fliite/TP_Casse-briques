@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class PageParametres(tk.Frame):
+class Parametres(tk.Frame):
     def __init__(self, parent, controller):
         '''Cette page de parametres permettra de régler les paramètres du jeu en tant qu'utilisateur'''
         super().__init__(parent)

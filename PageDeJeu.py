@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class PageJeu(tk.Frame):
+class Jeu(tk.Frame):
     def __init__(self, parent, controller):
         '''Cette page de Jeu'''
         super().__init__(parent)
