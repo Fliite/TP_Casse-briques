@@ -1,10 +1,16 @@
 class Balle:
-    def __init__(self):
-        self.__rayon = 10
-        self.__couleur = ("#F7FF17")
-        self.__position = [300, 300]
-        self.__vitesse = [5, -5]
-        self.__id = None
+    '''Dans cette classe, on gère la balle du jeu.
+    On initialise une balle avec ses coordonnées, sa vitesse et sa couleur.
+    On pourra eventuellement modifier cette classe pour ajouter des fonctionnalités comme des balles spéciales (vitesse variable, taille variable, etc.).
+    '''
+    def __init__(self, canvas, x, y, r=7, color="white", vitesseBalle=6):
+        self.canvas = canvas
+        self.r = r
+        self.id = canvas.create_oval(x - r, y - r, x + r, y + r, fill=color, outline=color)
+        self.vitesseBalle = vitesseBalle
+        self.vx = vitesseBalle * 0.7
+        self.vy = -abs(vitesseBalle * 0.7)
+        self._prev_bbox = self.canvas.coords(self.id)
     def getX(self):
         return self.__position[0]
     def getY(self):
