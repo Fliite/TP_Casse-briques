@@ -59,6 +59,23 @@ class Balle:
         self.__vy = signy * vitesseBalle * math.sin(ang)
         self.__vitesseBalle = vitesseBalle
 
+    def RebondRaquette(self, zoneRaquette, max_angle_deg=75):
+        '''Permet de gérer le rebond de la balle sur la raquette en fonction de la position d'impact'''
+        bx1, by1, bx2, by2 = self.CordsBalle()
+        RaquetteX1, RaquetteY1, RaquetteX2, RaquetteY2 = zoneRaquette
+        CentreBalle = (bx1 + bx2) / 2 # C'est le centre de la balle
+        CentreR = (RaquetteX1 + RaquetteX2) / 2 # C'est le centre de la raquette
+        CentreRaquette = (RaquetteX2 - RaquetteX1) / 2
+        if CentreRaquette == 0: 
+            PosRelative = 0 
+        else:
+            PosRelative = max(-1.0, min(1.0, (CentreBalle - CentreR) / CentreRaquette))
+        angle = math.radians(PosRelative * max_angle_deg)
+        vitesseBalle = math.hypot(self.__vx, self.__vy)
+        self.__vx = vitesseBalle * math.sin(angle)
+        self.__vy = -abs(vitesseBalle * math.cos(angle))
+
+
     def AnciennesCoords(self):
         ''' Renvoie les coordonnées précédentes de la balle sous la forme (x1, y1, x2, y2) '''
         return self.__PosPrec
