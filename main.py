@@ -145,18 +145,97 @@ class Application(tk.Tk):
         # collisions avec les murs
         self.CollisionsMur()
         # collisions avec la raquette
-        self.CollisionsPaddle()
+        self.CollisionsBR()
         # collisions avec les briques
         self.CollisionsBriques()
         # vérifie si la balle est sortie par le bas
         self.VerifierSortie()
 
+
+    def CollisionsMur(self):
+        '''
+        Gère la réflexion de la balle sur les bords du canevas.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        # coordonnées actuelles de la balle
+        x1, y1, x2, y2 = self.Balle.coords()
+        # collision gauche
+        if x1 <= 0 and self.Balle.vx < 0:
+            self.Balle.RebondX()
+        # collision droite
+        if x2 >= self.Largeur and self.Balle.vx > 0:
+            self.Balle.RebondX()
+        # collision haut
+        if y1 <= 0 and self.Balle.vy < 0:
+            self.Balle.RebondY()
+
+    def CollisionsBR(self):
+        '''
+        Gère les collisions entre la balle et la raquette.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        # trouve les objets qui chevauchent la balle
+        items = self.Canevas.find_overlapping(*self.Balle.coords())
+        paddle_id = self.Raquette.id
+        # si on touche la raquette et que la balle descend
+        if paddle_id in items and self.Balle.vy > 0:
+            # réflexion selon la règle d'angle de la raquette
+            self.Balle.RebondRaquette(self.Raquette.coords())
+
+            # on repositionne la balle au-dessus de la raquette pour éviter qu'elle colle
+            bx1, by1, bx2, by2 = self.Balle.coords()
+            px1, py1, px2, py2 = self.Raquette.coords()
+            overlap = by2 - py1
+            if overlap > 0:
+                self.Canevas.move(self.Balle.id, 0, -overlap - 1)
+
+    def CollisionsBriques(self):
+        '''Gère les collisions entre la balle et les briques et supprime les briques touchées.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        collided = []
+        # récupère les items qui chevauchent la balle
+        for item in self.Canevas.find_overlapping(*self.Balle.coords()):
+            if item in self.Briques:
+                collided.append(item)
+        for bid in collided:
+            brique = self.Briques.get(bid)
+            if not brique:
+                continue
+            # calcul des recouvrements pour déterminer l'axe de réflexion
+            bb = self.Balle.coords()
+            brect = self.Canevas.coords(bid)
+            ox = max(0, min(bb[2], brect[2]) - max(bb[0], brect[0]))
+            oy = max(0, min(bb[3], brect[3]) - max(bb[1], brect[1]))
+            if ox > oy:
+                # plus de recouvrement horizontal -> inversion verticale
+                self.Balle.RebondY()
+            else:
+                # sinon inversion horizontale
+                self.Balle.RebondX()
+            # destruction de la brique touchée
+            brique.destroy()
+            del self.Briques[bid]
+            # augmentation du score
+            self.ScoreVar.set(self.ScoreVar.get() + 10)
+            # si plus de briques, victoire
+            if not self.Briques:
+                self.Victoire()
+            # on gère au plus une brique par frame pour éviter des réflexions multiples
+            break
+
+
+
+
+#permet de lancer l'application de manière autonome, utile pour les tests
     def show_frame(self, page_name):
         '''Affiche la frame demandée'''
         frame = self.frames[page_name]
         frame.tkraise()
 
-#permet de lancer l'application de manière autonome, utile pour les tests
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
