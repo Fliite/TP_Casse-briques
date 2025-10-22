@@ -92,6 +92,66 @@ class Application(tk.Tk):
                 brique = Brique(self.Canevas, x1, y1, x2, y2, color=couleurs[r % len(couleurs)])
                 self.Briques[brique.id] = brique
 
+    def StopRaquette(self, expect):
+        '''
+        Arrête la raquette uniquement si sa vitesse correspond à la direction attendue.
+        Entrée : informations liée à la raquette
+        Sortie : aucune
+        '''
+        # évite d'arrêter la raquette si l'autre touche est encore maintenue
+        if self.Raquette.vx == expect:
+            self.Raquette.GoRaquette(0)
+
+    def Demarer(self):
+        '''
+        Démarre la boucle du jeu. Si pas de briques, réinitialise le plateau.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        # si la boucle n'était pas en cours, on la lance
+        if not self.Running:
+            self.Running = True
+            # si toutes les briques ont été détruites, on réinitialise l'écran
+            if not self.Briques:
+                self.Canevas.delete("all")
+                self.InitObjets()
+            # positionne la balle au-dessus de la raquette
+            px, py = self.Raquette.center()
+            self.Balle.set_position(px, py - 30)
+            # petite vitesse initiale
+            self.Balle.reset_velocity(vx=self.Balle.vitesseBalle * 0.6, vy=-abs(self.Balle.vitesseBalle * 0.6))
+
+    def Boucle(self):
+        '''
+        Boucle périodique qui met à jour l'état du jeu quand il tourne.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        # si le jeu est en cours, on met à jour une frame
+        if self.Running:
+            self.Update()
+        # réenclenche la boucle après _TauxTick ms
+        self.Racine.after(self._TauxTick, self.Boucle)
+
+    def Update(self):
+        '''
+        Met à jour la position des objets et gère les collisions et la sortie.
+        Entrée : informations liée au jeu
+        Sortie : aucune
+        '''
+        # déplacement de la raquette selon sa vitesse
+        self.Raquette.move()
+        # déplacement de la balle
+        self.Balle.move()
+        # collisions avec les murs
+        self.CollisionsMur()
+        # collisions avec la raquette
+        self.CollisionsPaddle()
+        # collisions avec les briques
+        self.CollisionsBriques()
+        # vérifie si la balle est sortie par le bas
+        self.VerifierSortie()
+
     def show_frame(self, page_name):
         '''Affiche la frame demandée'''
         frame = self.frames[page_name]
