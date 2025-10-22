@@ -25,12 +25,14 @@ class Balle:
             self.__id = canvas.create_oval( x-r, y - r, x + r, y + r, fill=self.__couleur, outline="")
         else : 
             canvas.coords(self.__id, x-r, y - r, x + r, y + r )
-    def rebond(self, canvas, ):
-        """ Permet de créer la physique de la balle"""
-        x, y = self.__position
-        vx, vy = self.__vitesse
-        r = self.__rayon
+    
+    def RebondX(self):
+        ''' Inverse la vitesse en x de la balle '''
+        self.vx = -self.vx
 
+    def RebondY(self):
+        ''' Inverse la vitesse en y de la balle '''
+        self.vy = -self.vy
         #Déplacement 
         x += vx
         y += vy
