@@ -11,12 +11,17 @@ class Balle:
         self.vx = vitesseBalle * 0.7
         self.vy = -abs(vitesseBalle * 0.7)
         self._prev_bbox = self.canvas.coords(self.id)
-    def getX(self):
-        return self.__position[0]
-    def getY(self):
-        return self.__position[1]
-    def getR(self):
-        return self.__rayon
+    
+    def CordsBalle(self):
+        ''' Renvoie les coordonnées actuelles de la balle sous la forme (x1, y1, x2, y2) '''
+        return self.canvas.coords(self.id)
+
+    def move(self):
+        ''' Déplace la balle selon sa vitesse '''
+        self._prev_bbox = self.CordsBalle()
+        self.canvas.move(self.id, self.vx, self.vy)
+    
+
     def draw_b(self, canvas):
         """ Crée et met à jour la balle """
         x, y = self.__position
@@ -33,7 +38,7 @@ class Balle:
     def RebondY(self):
         ''' Inverse la vitesse en y de la balle '''
         self.vy = -self.vy
-        
+
     def VerifierVitesse(self, vx=None, vy=None):
         ''' Permet de modifier la vitesse de la balle 
         elle prend en argument la nouvelle vitesse en x et/ou y
