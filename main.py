@@ -7,8 +7,12 @@ class Application(tk.Tk):
     Les pages parametres, jeu, accueil sont des frames qui héritent de tk.Frame.
     Ce sont des onglets que l'on peut afficher ou cacher.
     '''
-    def __init__(self):
-        '''Initialise le jeu : fenêtre, canevas, contrôles et objets du jeu.'''
+    def __init__(self, racine):
+        '''
+        Initialise le jeu : fenêtre, canevas, contrôles et objets du jeu.
+        Entrée : informations liée à la fenêtre principale
+        Sortie : aucune car fait une boucle
+        '''
         # référence à la fenêtre principale
         self.Racine = racine
         # titre de la fenêtre
@@ -46,6 +50,47 @@ class Application(tk.Tk):
         self._TauxTick = 16
         # démarre la boucle périodique
         self.Boucle()
+
+    def InitObjets(self):
+        '''
+        Crée la raquette, la balle, réinitialise le score/vies et crée les briques.
+        Entrée : informations liée au jeu
+        Sortie : aucune 
+        '''
+        # raquette positionnée au centre bas
+        self.Raquette = Raquette(self.Canevas, self.Largeur/2, self.Hauteur - 40)
+        # balle positionnée juste au-dessus de la raquette
+        self.Balle = Balle(self.Canevas, self.Largeur/2, self.Hauteur - 60)
+        # dictionnaire id_canvas -> brique
+        self.Briques = {}
+        # réinitialisation des compteurs
+        self.ScoreVar.set(0)
+        self.ViesVar.set(3)
+        # création des briques
+        self.CreerBriques()
+
+    def CreerBriques(self, lignes=10, colonnes=10, espace=2, EspaceSuperieur=50):
+        '''
+        Crée une grille de briques en haut du canevas.
+        Entrée : informations liée aux briques
+        Sortie : aucune 
+        '''
+        # calcul de la largeur d'une brique en tenant compte des marges
+        LBrique = (self.Largeur - espace * (colonnes + 1)) / colonnes
+        # hauteur fixe des briques
+        HBrique = 22
+        # palette de couleurs par ligne
+        couleurs = ["red","orange","yellow","green","cyan","lightgreen"]
+        for r in range(lignes):
+            for c in range(colonnes):
+                # coordonnées de la brique
+                x1 = espace + c * (LBrique + espace)
+                y1 = EspaceSuperieur + r * (HBrique + espace)
+                x2 = x1 + LBrique
+                y2 = y1 + HBrique
+                # création de l'objet Brique et stockage par id canvas
+                brique = Brique(self.Canevas, x1, y1, x2, y2, color=couleurs[r % len(couleurs)])
+                self.Briques[brique.id] = brique
 
     def show_frame(self, page_name):
         '''Affiche la frame demandée'''
