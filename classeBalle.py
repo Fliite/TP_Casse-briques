@@ -1,3 +1,5 @@
+import math
+
 class Balle:
     '''Dans cette classe, on gère la balle du jeu.
     On initialise une balle avec ses coordonnées, sa vitesse et sa couleur.
@@ -45,5 +47,18 @@ class Balle:
         ''' Permet de modifier la vitesse de la balle 
         elle prend en argument la nouvelle vitesse en x et/ou y
         '''
-        if vx is not None: self.vx = vx
-        if vy is not None: self.vy = vy
+        if vx is not None: self.__vx = vx
+        if vy is not None: self.__vy = vy
+
+    def ChangerVitesse(self, vitesseBalle):
+        ''' Modifie la vitesse de la balle en conservant son angle de déplacement '''
+        signx = 1 if self.__vx >= 0 else -1
+        signy = 1 if self.__vy >= 0 else -1
+        ang = math.atan2(abs(self.__vy), abs(self.__vx))
+        self.__vx = signx * vitesseBalle * math.cos(ang)
+        self.__vy = signy * vitesseBalle * math.sin(ang)
+        self.__vitesseBalle = vitesseBalle
+
+    def AnciennesCoords(self):
+        ''' Renvoie les coordonnées précédentes de la balle sous la forme (x1, y1, x2, y2) '''
+        return self.__PosPrec
