@@ -33,17 +33,10 @@ class Balle:
     def RebondY(self):
         ''' Inverse la vitesse en y de la balle '''
         self.vy = -self.vy
-        #Déplacement 
-        x += vx
-        y += vy
-
-        #Rebond mur gauche/droit
-        if x-r <= 0 or x+r <= 720:
-            vx = -vx
-        #Rebond mur plafond
-        if y-r <= 0 :
-            vy = -vy
-
-        self.__position = [x, y]
-        self.__vitesse = [vx, vy]
-        self.draw(canvas)
+        
+    def VerifierVitesse(self, vx=None, vy=None):
+        ''' Permet de modifier la vitesse de la balle 
+        elle prend en argument la nouvelle vitesse en x et/ou y
+        '''
+        if vx is not None: self.vx = vx
+        if vy is not None: self.vy = vy
