@@ -1,6 +1,5 @@
 import tkinter as tk
 from PageParametres import PageParametres
-from PageDeJeu import PageJeu
 from classeBalle import Balle
 from classeRaquette import Raquette
 from classeBrique import Brique
@@ -19,13 +18,13 @@ class Application(tk.Tk):
         self.frames = {}
 
         # Crée les différentes pages
-        for F in (PageAccueil, PageParametres, PageJeu):
+        for F in ("PageParametres"):
             page_name = F.__name__
             frame = F(parent=self, controller=self)
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew") # nsew pour que la frame prenne toute la place
 
-        self.show_frame("PageAccueil")
+        self.show_frame("PageParametres")
 
     def show_frame(self, page_name):
         '''Affiche la frame demandée'''
