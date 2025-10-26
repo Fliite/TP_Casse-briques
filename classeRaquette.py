@@ -22,7 +22,23 @@ class Raquette:
             self.canvas.move(self.id, -x1, 0)
         elif x2 > W:
             self.canvas.move(self.id, W - x2, 0)
-            
+
     def coordonnees(self):
         ''' Renvoie les coordonnées actuelles de la raquette sous la forme (x1, y1, x2, y2) '''
         return self.canvas.coords(self.id)
+
+    def centre(self):
+        ''' Renvoie les coordonnées du centre de la raquette sous la forme (cx, cy) '''
+        x1, y1, x2, y2 = self.coordonnees()
+        return ((x1 + x2) / 2, (y1 + y2) / 2) # centre de la raquette
+
+    def centrer(self, x):
+        ''' Permet de centrer la raquette en x '''
+        x1, y1, x2, y2 = self.coordonnees()
+        cx = (x1 + x2) / 2
+        dx = x - cx
+        self.canvas.move(self.id, dx, 0)
+
+    def GoRaquette(self, vx):
+        ''' Permet de modifier la vitesse de la raquette '''
+        self.vx = vx
