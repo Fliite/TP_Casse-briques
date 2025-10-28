@@ -1,3 +1,9 @@
+'''
+Cree par Lucas BERRY et Baudry DEROUBAIX modifié en dernier le 26/10/25
+Classe représentant la balle du joueur dans le jeu de casse-briques.
+BUT : Gérer la position, le déplacement et les rebonds de la balle.
+c'est dans cette classe que l'on gère la vitesse de la balle et les rebonds sur la raquette.
+'''
 import math
 
 class Balle:

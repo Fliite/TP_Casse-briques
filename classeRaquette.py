@@ -1,3 +1,9 @@
+'''
+Cree par Lucas BERRY et Baudry DEROUBAIX modifié en dernier le 26/10/25
+Classe représentant la raquette du joueur dans le jeu de casse-briques.
+BUT : Gérer la position, le déplacement et le centrage de la raquette.
+'''
+
 class Raquette:
     '''La classe Raquette représente la raquette contrôlée par le joueur.
     On initialise une raquette avec sa position centrale, sa largeur, sa hauteur, sa couleur et sa vitesse de déplacement.

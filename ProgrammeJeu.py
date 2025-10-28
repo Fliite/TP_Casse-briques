@@ -1,3 +1,10 @@
+'''
+Cree par Lucas BERRY et Baudry DEROUBAIX modifié en dernier le 28/10/25
+Programme principal du jeu de casse-briques.
+BUT : Il crée la fenêtre principale, le canevas, les contrôles et gère la boucle de jeu.
+Il utilise les classes Balle, Raquette et Brique définies dans les autres fichiers.
+'''
+
 import tkinter as tk
 from tkinter import messagebox
 from classeBalle import Balle

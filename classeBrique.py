@@ -1,3 +1,9 @@
+'''
+Cree par Lucas BERRY et Baudry DEROUBAIX modifié en dernier le 26/10/25
+Classe représentant une brique dans le jeu de casse-briques.
+BUT : Gérer la position, la couleur et la destruction de la brique.
+'''
+
 class Brique:
     '''Dans cette classe, on gère les briques du jeu.
     On initialise une brique avec ses coordonnées, sa couleur et le nombre de coups nécessaires pour la détruire.
