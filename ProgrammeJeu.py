@@ -34,6 +34,9 @@ class JeuCasseBrique(tk.Tk):
         # bouton quitter
         self.QuitterBtn = tk.Button(self.HautFrame, text="Quitter", command=self.Racine.quit)
         self.QuitterBtn.pack(side="left", padx=5, pady=3)
+        #bouton parametres
+        self.ParametresBtn = tk.Button(self.HautFrame, text="Paramètres", command=self.OuvrirParametres)
+        self.ParametresBtn.pack(side="left", padx=5, pady=3)
         # variables Tk pour score et vies
         self.ScoreVar = tk.IntVar(value=0)
         self.ViesVar = tk.IntVar(value=3)
@@ -82,6 +85,28 @@ class JeuCasseBrique(tk.Tk):
                 # création de l'objet Brique et stockage par id canvas
                 brique = Brique(self.Canevas, x1, y1, x2, y2, color=couleurs[r % len(couleurs)])
                 self.Briques[brique.id] = brique
+
+    def OuvrirParametres(self):
+        '''Ouvre la fenêtre des paramètres du jeu.
+        Elle permet de régler des paramètres comme la vitesse de la balle.
+        La vitesse doit etre comprise entre 3 et 20 environ, sinon ca va trop vite'''
+        FenetreParametres = tk.Toplevel(self.Racine) # top level = nouvelle fenetre
+        FenetreParametres.title("Paramètres du Jeu")
+        FenetreParametres.geometry("300x200")
+        tk.Label(FenetreParametres, text="Paramètres du Jeu", font=("Arial", 16)).pack(pady=10)
+        # Exemple de paramètre : vitesse de la balle
+        tk.Label(FenetreParametres, text="Vitesse de la balle:").pack(pady=5)
+        EntreeVitesse = tk.Entry(FenetreParametres)
+        EntreeVitesse.pack(pady=5)
+        def validerParametres(): # fonction interne pour valider les paramètres
+            try: # methode utile trouvee sur GitHub pour gerer les erreurs de saisie
+                vitesse = float(EntreeVitesse.get())
+                self.Balle.vitesseBalle = vitesse
+                FenetreParametres.destroy()
+            except ValueError: 
+                messagebox.showerror("Erreur", "Veuillez entrer une valeur numérique valide pour la vitesse.")
+        BtnValider = tk.Button(FenetreParametres, text="Valider", command=validerParametres)
+        BtnValider.pack(pady=10)
 
     def LierTouches(self):
         '''Lie les touches clavier aux actions de la raquette et du jeu.'''
