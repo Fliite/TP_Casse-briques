@@ -75,7 +75,7 @@ class JeuCasseBrique(tk.Tk):
         LBrique = (self.Largeur - espace * (colonnes + 1)) / colonnes
         HBrique = 22    
         couleurs = ["red","orange","yellow","green","cyan","lightgreen"]
-        for r in range(lignes):
+        for r in range(lignes): 
             for c in range(colonnes):
                 # coordonnées de la brique
                 x1 = espace + c * (LBrique + espace)
@@ -83,7 +83,8 @@ class JeuCasseBrique(tk.Tk):
                 x2 = x1 + LBrique
                 y2 = y1 + HBrique
                 # création de l'objet Brique et stockage par id canvas
-                brique = Brique(self.Canevas, x1, y1, x2, y2, color=couleurs[r % len(couleurs)])
+                # implementation cyclique des couleurs comme une pile
+                brique = Brique(self.Canevas, x1, y1, x2, y2, color=couleurs[r % len(couleurs)]) 
                 self.Briques[brique.id] = brique
 
     def OuvrirParametres(self):
@@ -132,7 +133,7 @@ class JeuCasseBrique(tk.Tk):
             px, py = self.Raquette.centre()
             self.Balle.Position(px, py - 30)
             # petite vitesse initiale
-            speed = getattr(self.Balle, "vitesseBalle", 5) * 0.6
+            speed = getattr(self.Balle, "vitesseBalle", 5) * 0.6 # getattr pour valeur par defaut si pas definie et *0.6 pour eviter vitesse trop grande
             # vitesse aléatoire vers le haut : on choisit vx aléatoire et on calcule vy négatif
             vx = random.uniform(-speed, speed)
             vy = -math.sqrt(max(0.0, speed * speed - vx * vx))
